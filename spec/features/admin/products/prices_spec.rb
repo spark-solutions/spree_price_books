@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Prices" do
+describe "Prices", type: :feature do
   stub_authorization!
 
   let!(:default_price_book) { Spree::PriceBook.create_default }

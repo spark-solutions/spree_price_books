@@ -4,12 +4,13 @@ describe Spree::Order do
   context 'CurrencyUpdater' do
     context "when changing order currency" do
       let!(:line_item) { create(:line_item) }
+      let!(:store) { line_item.order.store }
       let!(:euro_price) {
         create(:price,
           variant: line_item.variant,
           amount: 8,
           currency: 'EUR',
-          price_book: create(:active_price_book, currency: 'EUR', discount: true, priority: 1)
+          price_book: create(:active_price_book, currency: 'EUR', discount: true, priority: 1, stores: [store])
         )
       }
       let!(:euro_list_price) {
@@ -17,7 +18,7 @@ describe Spree::Order do
           variant: line_item.variant,
           amount: 18,
           currency: 'EUR',
-          price_book: create(:active_price_book, currency: 'EUR', discount: false, priority: 0)
+          price_book: create(:active_price_book, currency: 'EUR', discount: false, priority: 0, stores: [store])
         )
       }
 

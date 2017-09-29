@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Price Books", js: true do
+describe "Price Books", type: :feature, js: true do
 
   after do
     Spree::Config[:currency] = 'USD'

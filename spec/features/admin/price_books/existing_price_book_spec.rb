@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Price Books - Existing" do
+describe "Price Books - Existing", type: :feature do
   stub_authorization!
 
   before(:each) do

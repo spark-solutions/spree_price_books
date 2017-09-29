@@ -16,9 +16,9 @@ ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 
 require 'rspec/rails'
-require 'database_cleaner'
 require 'ffaker'
 require 'timecop'
+require 'rspec/active_model/mocks'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -70,7 +70,7 @@ RSpec.configure do |config|
   end
 
   # Before each spec check if it is a Javascript test and switch between using database transactions or not where necessary.
-  config.before :each do
+  config.before :each do |example|
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
   end
@@ -83,3 +83,9 @@ RSpec.configure do |config|
   config.fail_fast = ENV['FAIL_FAST'] || false
   config.order = "random"
 end
+
+Dir[File.join(File.dirname(__FILE__), '/support/**/*.rb')].each do |file|
+  require file unless file.include? 'capybara'
+end
+
+require File.join(File.dirname(__FILE__), '/support/capybara.rb')
