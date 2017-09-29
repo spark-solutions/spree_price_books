@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "Store Management - Price Books", type: :feature,  js: true do
 
-  # stub_authorization!
+  stub_authorization!
 
   let!(:store_1) { create(:store) }
   let!(:store_2) { create(:store) }

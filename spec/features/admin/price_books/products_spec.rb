@@ -5,8 +5,7 @@ describe "Price Books - ", type: :feature  do
 
   before(:each) do
     Spree::PriceBook.default
-    visit spree.admin_price_books_path
-    within('.main-menu-wrapper') { click_link "Products" }
+    visit spree.admin_products_path
   end
 
   context "Default PriceBook has products" do

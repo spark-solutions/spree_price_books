@@ -6,8 +6,6 @@
     <%= link_to_with_icon 'add', Spree.t(:new_price_book), new_admin_price_book_url, { :remote => true, :class => 'btn btn-success', :id => 'new_price_book_link' } %>
 <% end %>
 
-<%#= render :partial => 'spree/admin/shared/product_sub_menu' %>
-
 <div id="price_book_form_wrapper"></div>
 
 <% if @price_books.any? %>

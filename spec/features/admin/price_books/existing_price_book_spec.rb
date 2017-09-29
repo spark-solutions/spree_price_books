@@ -1,13 +1,12 @@
 require 'spec_helper'
 
-describe "Price Books - Existing", type: :feature do
+describe "Price Books - Existing", js: true, type: :feature do
   stub_authorization!
 
   before(:each) do
     Spree::PriceBook.default
     create :price_book
-    visit spree.admin_price_books_path
-    within('.main-menu-wrapper') { click_link "Products" }
+    visit spree.admin_products_path
     click_link "Price Books"
   end
 
@@ -18,9 +17,11 @@ describe "Price Books - Existing", type: :feature do
   end
 
   it "can update a PriceBook" do
-    find('.admin_edit_price_book:last-child').click
-
+    within('#spree_price_book_2') do
+      click_icon :edit
+    end
     fill_in 'price_book_name', with: 'TEST'
+    fill_in 'price_book_price_adjustment_factor', with: '1'
     select 'GEL', from: 'price_book_currency'
 
     click_button 'Update'
@@ -31,7 +32,8 @@ describe "Price Books - Existing", type: :feature do
   end
 
   it "can remove a PriceBook", js: true do
-    click_icon :trash
+    skip 'it uses selenium specific method' unless Capybara.javascript_driver == :selenium
+    click_icon :delete
     page.driver.browser.switch_to.alert.accept
     wait_for_ajax
 

@@ -31,7 +31,7 @@ module Spree
         variant_ids = @product.variants_including_master.pluck(:id)
 
         @price_book.prices.where(variant_id: variant_ids).destroy_all
-        redirect_to :back
+        redirect_back(fallback_location: root_path)
       end
 
       def show
@@ -45,6 +45,16 @@ module Spree
           book.update_attribute(:priority, index) if book.present?
         end
         render nothing: true
+      end
+
+      private
+
+      def redirect_back(fallback_location:)
+        if Rails.gem_version >= Gem::Version.new('5.x')
+          super
+        else
+          redirect_to :back
+        end
       end
     end
   end
